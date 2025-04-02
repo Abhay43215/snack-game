@@ -138,10 +138,6 @@ function gameLoop() {
 
     // Check for collision with walls or itself
     if (snake.checkCollision()) {
-        // Reset game if collision occurs
-        score = 0;
-        snake = new Snake();
-        document.getElementById("score").innerText = "Score: " + score;
         handleGameOver();
     }
 }
@@ -187,9 +183,6 @@ function Snake() {
     this.growing = false;
 
     this.draw = function() {
-        this.snakeArray.forEach(function(segment, index) {
-            ctx.fillStyle = index === 0 ? "#00FF00" : "#FFFFFF"; // Head is green, body is white
-            ctx.fillRect(segment.x * scale, segment.y * scale, scale, scale);
         this.snakeArray.forEach((segment, index) => {
             // Calculate color for gradient effect from head to tail
             const greenValue = Math.floor(150 - (index * 3));
@@ -260,7 +253,6 @@ function Snake() {
         if (this.direction === 'down') head.y++;
 
         this.snakeArray.unshift(head); // Add new head at front
-        this.snakeArray.pop(); // Remove last part of the tail
         
         // Remove last part unless growing
         if (!this.growing) {
@@ -270,11 +262,6 @@ function Snake() {
         }
     };
 
-    this.changeDirection = function(event) {
-        if (event.keyCode === 37 && this.direction !== 'right') this.direction = 'left'; // Left arrow
-        if (event.keyCode === 38 && this.direction !== 'down') this.direction = 'up'; // Up arrow
-        if (event.keyCode === 39 && this.direction !== 'left') this.direction = 'right'; // Right arrow
-        if (event.keyCode === 40 && this.direction !== 'up') this.direction = 'down'; // Down arrow
     };
 
     this.eat = function(food) {
@@ -300,8 +287,6 @@ function Snake() {
             return true;
         }
 
-        // Check if the snake runs into itself
-        for (let i = 1; i < this.snakeArray.length; i++) {
         // Check if the snake runs into itself (start checking from the 4th segment)
         for (let i = 4; i < this.snakeArray.length; i++) {
             if (this.snakeArray[i].x === head.x && this.snakeArray[i].y === head.y) {
@@ -330,8 +315,6 @@ function Food() {
     };
 
     this.draw = function() {
-        ctx.fillStyle = "#FF0000";
-        ctx.fillRect(this.x * scale, this.y * scale, scale, scale);
         // Pulse animation for food
         if (this.pulseGrowing) {
             this.pulseSize += 0.04;
@@ -366,7 +349,6 @@ function Food() {
     this.randomize(); // Randomize initial food position
 }
 
-// Listen for keyboard events to control snake direction
 // Particle effect when snake eats food
 const particles = [];
 
@@ -414,7 +396,6 @@ document.addEventListener('touchmove', function(e) {
 
 // Event listeners for keyboard controls
 document.addEventListener('keydown', function(event) {
-    snake.changeDirection(event);
     if (!gameStarted && !gameOver && event.key.includes('Arrow')) {
         startGame();
     }
