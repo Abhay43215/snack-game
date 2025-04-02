@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', resizeCanvas);
 const scale = 20; // Size of each grid square
 const rows = canvas.height / scale; // Rows on canvas
 const columns = canvas.width / scale; // Columns on canvas
+let rows = canvas.height / scale; // Rows on canvas
+let columns = canvas.width / scale; // Columns on canvas
 
 // Game state variables
 let snake;
@@ -282,7 +284,6 @@ function Snake() {
 
     this.eat = function(food) {
         const head = this.snakeArray[0];
-        return head.x === food.x && head.y === food.y;
         if (head.x === food.x && head.y === food.y) {
             this.growing = true;
             return true;
