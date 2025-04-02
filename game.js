@@ -260,6 +260,16 @@ function Snake() {
         }
     };
 
+    this.changeDirection = function(direction) {
+        // Prevent reversing directly
+        if ((direction === 'left' && this.direction !== 'right') ||
+            (direction === 'right' && this.direction !== 'left') ||
+            (direction === 'up' && this.direction !== 'down') ||
+            (direction === 'down' && this.direction !== 'up')) {
+            
+            this.nextDirection = direction;
+            this.directionChanged = true;
+        }
     };
 
     this.eat = function(food) {
