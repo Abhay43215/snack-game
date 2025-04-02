@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', resizeCanvas);
 
 // Game settings
 const scale = 20; // Size of each grid square
-const rows = canvas.height / scale; // Rows on canvas
-const columns = canvas.width / scale; // Columns on canvas
 let rows = canvas.height / scale; // Rows on canvas
 let columns = canvas.width / scale; // Columns on canvas
 
@@ -73,8 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
     checkMobile();
 });
 
-// Snake object
-(function setup() {
 // Function to update score display
 function updateScoreDisplay() {
     if (scoreDisplay) {
@@ -123,7 +119,6 @@ function gameLoop() {
         }
         
         score++;
-        document.getElementById("score").innerText = "Score: " + score;
         updateScoreDisplay();
         
         // Increase game speed as score increases
