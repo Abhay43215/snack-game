@@ -82,8 +82,6 @@ function updateScoreDisplay() {
 function setup() {
     snake = new Snake();
     food = new Food();
-    window.setInterval(gameLoop, 100); // Game loop runs every 100ms
-})();
     gameStarted = false;
     gameOver = false;
     score = 0;
